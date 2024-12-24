@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const userTaskSchema = new mongoose.Schema({ 
-  tasks: {
+  myTasks: {
     type: [String],
     default: [],
   },

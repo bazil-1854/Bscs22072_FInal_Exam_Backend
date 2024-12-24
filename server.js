@@ -15,6 +15,7 @@ app.use(express.json());
 
 app.use('/task-manager/auth', require("./routes/authRoute")); 
 app.use('/task-manager/profile', require("./routes/profileRoutes")); 
+app.use('/task-manager/tasks', require("./routes/taskRoutes")); 
 
  
 const PORT = process.env.PORT || 3001;
