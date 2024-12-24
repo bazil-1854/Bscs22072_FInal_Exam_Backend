@@ -67,7 +67,7 @@ exports.delete_a_Task = async (req, res) => {
             return res.status(404).json({ message: 'No Task found' });
         }
 
-        const updated_User_task_array = await HostingListings.findByIdAndUpdate(
+        const updated_User_task_array = await UserTasks.findByIdAndUpdate(
             userId,
             { $pull: { myTasks: taskId } },
             { new: true }
