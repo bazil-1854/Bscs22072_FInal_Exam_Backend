@@ -54,6 +54,38 @@ exports.create_a_Task = async (req, res) => {
     }
 };
 
+exports.update_a_Task = async (req, res) => {
+    const userId = req.user.id;
+    const { taskId } = req.params;
+
+    console.log(taskId)
+    try {
+        const userId = req.user.id;
+        //console.log(userId);
+        const { title, description, dueDate } = req.body;
+
+        // find user userTask coleciton id's
+        const userTasksCollection = await UserTasks.findById(userId);
+        if (!userTasksCollection) {
+            return res.status(404).json({ error: 'User not found in UserTasks' });
+        }
+
+        const newTask_to_be_created = new Tasks({ title, description, dueDate });
+
+        userTasksCollection.myTasks.push(newTask_to_be_created._id);
+
+        await userTasksCollection.save();
+        await newTask_to_be_created.save();
+        //console.log(newTask_to_be_created._id);
+
+        res.status(201).json({ message: 'Task is created  successfully' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Server error' });
+    }
+};
+
 exports.delete_a_Task = async (req, res) => {
     const userId = req.user.id;
     const { taskId } = req.params;
