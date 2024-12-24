@@ -1,11 +1,12 @@
 const User = require('../models/user');
+const UserTasks = require('../models/userTasks');
 const jwt = require('jsonwebtoken'); 
 const bcrypt = require('bcryptjs');
 
 
 exports.register = async (req, res) => {
   try {
-    const { email, password, fullName, role } = req.body;
+    const { email, password, fullName } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -17,12 +18,16 @@ exports.register = async (req, res) => {
     const newUser = new User({
       email,
       password: hashedPassword,
-      fullName,
-      phoneNumber:'03000000000',
-      role
+      fullName, 
     });
 
+    console.log(newUser._id);
     await newUser.save();
+
+    const userTasks = new UserTasks({
+      _id: newUser._id
+    });
+    await userTasks.save(); 
 
     res.status(201).json({ message: 'User registered successfully' });
   } 

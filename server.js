@@ -13,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use('/api/', require("./routes/authRoute")); 
+app.use('/task-manager/auth', require("./routes/authRoute")); 
 
  
 const PORT = process.env.PORT || 3001;
