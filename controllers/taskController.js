@@ -55,35 +55,17 @@ exports.create_a_Task = async (req, res) => {
 };
 
 exports.update_a_Task = async (req, res) => {
-    const userId = req.user.id;
     const { taskId } = req.params;
+    const updatedData  = req.body;
+    console.log(updatedData)
 
-    console.log(taskId)
-    try {
-        const userId = req.user.id;
-        //console.log(userId);
-        const { title, description, dueDate } = req.body;
+    const tasks = await Tasks.findByIdAndUpdate(taskId, updatedData, { new: true });
 
-        // find user userTask coleciton id's
-        const userTasksCollection = await UserTasks.findById(userId);
-        if (!userTasksCollection) {
-            return res.status(404).json({ error: 'User not found in UserTasks' });
-        }
-
-        const newTask_to_be_created = new Tasks({ title, description, dueDate });
-
-        userTasksCollection.myTasks.push(newTask_to_be_created._id);
-
-        await userTasksCollection.save();
-        await newTask_to_be_created.save();
-        //console.log(newTask_to_be_created._id);
-
-        res.status(201).json({ message: 'Task is created  successfully' });
+    if (!tasks) {
+        return res.status(404).json({ error: 'Task not fOund' });
     }
-    catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Server error' });
-    }
+
+    res.status(200).json({ message: 'Task Updated ' });
 };
 
 exports.delete_a_Task = async (req, res) => {
