@@ -7,7 +7,7 @@ const taskSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    default: 'Tell us more about yourself!',
+    default: 'Empty Task .. :/',
     maxlength: 1000 
   },   
   createdAt: {

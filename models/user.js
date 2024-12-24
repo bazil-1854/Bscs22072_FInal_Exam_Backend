@@ -18,6 +18,11 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true
   },
+  about: {
+    type: String,
+    default: 'Tell us more about yourself!',
+    maxlength: 1000 
+  },   
   password: {
     type: String, 
     minlength: 6

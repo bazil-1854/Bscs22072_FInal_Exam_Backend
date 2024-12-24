@@ -3,7 +3,6 @@ const UserTasks = require('../models/userTasks');
 const jwt = require('jsonwebtoken'); 
 const bcrypt = require('bcryptjs');
 
-
 exports.register = async (req, res) => {
   try {
     const { email, password, fullName } = req.body;
